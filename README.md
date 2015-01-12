@@ -1,1 +1,1 @@
-# coastal
+# Coastal Inter-model Comparison Project
