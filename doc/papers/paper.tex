@@ -1,0 +1,85 @@
+%&pdflatex
+%
+%  Comparison of Numerical Models for Coastal Dynamics
+%
+%  Authors:
+%
+\documentclass[]{article}
+
+\usepackage{graphicx}
+
+% Use utf-8 encoding for foreign characters
+\usepackage[utf8]{inputenc}
+
+% Multipart figures
+% \usepackage{subcaption}
+
+% More symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+% URL and linking help
+\usepackage{hyperref}
+
+% Package for including code in the document
+\usepackage{listings}
+% \DeclareCaptionFont{white}{\color{white}}
+% \DeclareCaptionFormat{listing}{%
+%   \parbox{\textwidth}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
+% \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+% \lstset{frame=lrb,xleftmargin=\fboxsep,xrightmargin=-\fboxsep,numbers=left,basicstyle=\ttfamily\small,language=python,columns=fixed,commentstyle=\em\color[rgb]{0.133,0.545,0.133}}
+
+% This is now the recommended way for checking for PDFLaTeX:
+\usepackage{ifpdf}
+
+% Add line numbers
+\usepackage[mathlines]{lineno}
+
+% Need to use this package to handle the spacing issues in LaTeX after a command
+\usepackage{xspace}
+
+% Markup
+\usepackage{color}
+\newcommand{\comment}[1]{\color{blue} #1}
+\newcommand{\alert}[1]{\textbf{\color{red} #1}}
+
+\graphicspath{{./figures/}}
+
+
+
+% Useful commands
+\include{macros}
+
+\begin{document}
+
+\ifpdf
+\DeclareGraphicsExtensions{.pdf, .png, .jpg, .tif}
+\else
+\DeclareGraphicsExtensions{.png, .jpg, .tif, .eps}
+\fi
+
+\title{Comparison of Numerical Models for Coastal Dynamics}
+
+\author{Kyle T. Mandli\thanks{
+            Columbia University} \and
+        Nishant Panda\thanks{
+            Colorado State University}
+        }
+
+\maketitle
+
+\begin{abstract}
+    Put really awesome abstract here.
+\end{abstract}
+
+\section{}
+
+\section{Benchmarks}
+
+\begin{itemize}
+    \item \url{https://github.com/rjleveque/nthmp-benchmark-problems}
+\end{itemize}
+
+
+\end{document}
