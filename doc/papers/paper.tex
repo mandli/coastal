@@ -73,7 +73,26 @@
     Put really awesome abstract here.
 \end{abstract}
 
-\section{}
+\section{Introduction}
+
+\subsection{Selection Criteria}
+\begin{itemize}
+    \item Limit models to those that have the following properties:
+    \begin{itemize}
+        \item Well-balanced
+        \item Handles inundation
+        \item 2D or at the most semi-3D (layers) - this may troublesome to differentiate as most hydrostatic ocean codes are really layered 3D models
+    \end{itemize}
+\end{itemize}
+
+\begin{tabular}{c|ccccc}
+\textbf{Model} & Well-balanced & Inundation & 2D & Non-Hydrostatic & ~ \\
+\hline
+SWE                 & X & X & ~ & ~ & ~ \\
+Green-Naghdi        & ~ & ~ & ~ & ~ & ~ \\
+Boussinesq          & ~ & ~ & ~ & ~ & ~ \\
+Full 3D Hydrostatic & ~ & ~ & ~ & ~ & ~
+\end{tabular}
 
 \section{Benchmarks}
 
@@ -82,5 +101,17 @@
     \item \url{https://github.com/rjleveque/geoclaw-group/tree/master/benchmarks}
 \end{itemize}
 
+\begin{tabular}{c|cccc}
+\textbf{Dimensionality} & \textbf{Benchmark} & Analytical & Experimental & Field \\
+\hline \hline
+1D & Solitary Wave on a Simple Beach    & X          & X & ~ \\
+~  & Solitary Wave on a Composite Beach & X (linear) & X & ~ \\
+\hline
+2D & 3D Underwater Landslide Tsunami      & ~ & X & ~ \\
+~  & Solitary Waves on a Conical Island   & ~ & X & ~ \\
+~  & Monai Lab Runup Onto Complex Beach   & ~ & X & ~ \\
+~  & Okushiri                             & ~ & ~ & X \\
+~  & Submarine Landslides (Zhou and Teng) & ~ & X & ~ 
+\end{tabular}
 
 \end{document}
