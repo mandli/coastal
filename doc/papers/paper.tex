@@ -80,18 +80,21 @@
     \item Limit models to those that have the following properties:
     \begin{itemize}
         \item Well-balanced
-        \item Handles inundation
+        \item Handles inundation?
         \item 2D or at the most semi-3D (layers) - this may troublesome to differentiate as most hydrostatic ocean codes are really layered 3D models
     \end{itemize}
 \end{itemize}
 
 \begin{tabular}{c|ccccc}
-\textbf{Model} & Well-balanced & Inundation & 2D & Non-Hydrostatic & ~ \\
-\hline
-SWE                 & X & X & ~ & ~ & ~ \\
-Green-Naghdi        & ~ & ~ & ~ & ~ & ~ \\
-Boussinesq          & ~ & ~ & ~ & ~ & ~ \\
-Full 3D Hydrostatic & ~ & ~ & ~ & ~ & ~
+\textbf{Model} & Well-balanced & Inundation & 2D & Non-Hydrostatic & Linear Dispersion \\
+\hline \hline
+SWE                     & yes & yes & yes & no & ~  \\
+Serre-Green-Naghdi      & ~ & ~ & ~ & ~ & ~ \\
+Boussinesq-Green-Naghdi & ~ & ~ & ~ & ~ & ~ \\
+Non-Linear KdV          & ~ & ~ & ~ & ~ & ~ \\
+2-Layer SWE             & yes & yes & yes & no & ~ \\
+Full 3D Hydrostatic     & ~ & ~ & ~ & ~ & ~ \\
+Non-Hydrostatic         & ~ & ~ & ~ & ~ & ~
 \end{tabular}
 
 \section{Benchmarks}
@@ -115,5 +118,12 @@ Full 3D Hydrostatic & ~ & ~ & ~ & ~ & ~
 ~  & Okushiri                             & ~ & ~ & X \\
 ~  & Submarine Landslides (Zhou and Teng) & ~ & X & ~ 
 \end{tabular}
+
+\begin{itemize}
+    \item Trapezoidal berm
+    \item Solitary Wave on a Composite Beach
+\end{itemize}
+
+\section{Dispersion Analysis}
 
 \end{document}
