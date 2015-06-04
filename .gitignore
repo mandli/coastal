@@ -1,0 +1,24 @@
+# GeoClaw
+*.pyc
+*.o
+*.mod
+*.data
+.output
+.data
+.plots
+xclaw
+xamr
+xgeoclaw
+*.html
+_output/
+_plots/
+*~
+*.asc
+*.tt3
+*.tt1
+*.xyz
+*.topotype1
+*.topotype2
+*.topotype3
+
+

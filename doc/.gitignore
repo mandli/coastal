@@ -1,0 +1,4 @@
+papers/*/*.aux
+papers/*/*.fdb_latexmk
+papers/*/*.out
+papers/*/paper.pdf
