@@ -1,0 +1,137 @@
+%&pdflatex
+%
+%  Comparison of Numerical Models for Coastal Dynamics - 1D Theory
+%
+%  Authors:
+%
+\documentclass[]{article}
+
+\usepackage{graphicx}
+
+% Use utf-8 encoding for foreign characters
+\usepackage[utf8]{inputenc}
+
+% Multipart figures
+% \usepackage{subcaption}
+
+% More symbols
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+% URL and linking help
+\usepackage{hyperref}
+
+% Package for including code in the document
+\usepackage{listings}
+% \DeclareCaptionFont{white}{\color{white}}
+% \DeclareCaptionFormat{listing}{%
+%   \parbox{\textwidth}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
+% \captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+% \lstset{frame=lrb,xleftmargin=\fboxsep,xrightmargin=-\fboxsep,numbers=left,basicstyle=\ttfamily\small,language=python,columns=fixed,commentstyle=\em\color[rgb]{0.133,0.545,0.133}}
+
+% This is now the recommended way for checking for PDFLaTeX:
+\usepackage{ifpdf}
+
+% Add line numbers
+\usepackage[mathlines]{lineno}
+
+% Need to use this package to handle the spacing issues in LaTeX after a command
+\usepackage{xspace}
+
+% Markup
+\usepackage{color}
+\newcommand{\comment}[1]{\color{blue} #1}
+\newcommand{\alert}[1]{\textbf{\color{red} #1}}
+
+\graphicspath{{./figures/}}
+
+
+
+% Useful commands
+\input{../macros}
+
+\begin{document}
+
+\ifpdf
+\DeclareGraphicsExtensions{.pdf, .png, .jpg, .tif}
+\else
+\DeclareGraphicsExtensions{.png, .jpg, .tif, .eps}
+\fi
+
+\title{Comparison of Numerical Models for Coastal Dynamics}
+
+\author{Kyle T. Mandli\thanks{
+            Columbia University} \and
+        Nishant Panda\thanks{
+            Colorado State University}
+        }
+
+\maketitle
+
+\begin{abstract}
+    Put really awesome abstract here.
+\end{abstract}
+
+\begin{itemize}
+    \item Theoretical Paper
+    \begin{enumerate}
+        \item Intro to different PDE systems being considered
+        \item Dispersion analysis
+        \item 1D tests
+        \item status
+        \begin{enumerate}
+            \item KdV (Panda)
+            \item Serre-Green-Naghdi (Panda)
+            \item Boussinesq-Green-Naghdi (Panda)
+            \item Shallow water (Mandli)
+            \item 2-layer shallow water (Mandli)
+        \end{enumerate}
+    \end{enumerate}
+\end{itemize}
+
+
+
+\begin{tabular}{c|ccccc}
+\textbf{Model} & Well-balanced & Inundation & 2D & Non-Hydrostatic & Linear Dispersion \\
+\hline \hline
+SWE                     & yes & yes & yes & no & ~  \\
+Serre-Green-Naghdi      & ~ & ~ & ~ & ~ & ~ \\
+Boussinesq-Green-Naghdi & ~ & ~ & ~ & ~ & ~ \\
+Non-Linear KdV          & ~ & ~ & ~ & ~ & ~ \\
+2-Layer SWE             & yes & yes & yes & no & ~ \\
+\end{tabular}
+
+\section{Benchmarks}
+
+\begin{itemize}
+    \item \url{https://github.com/rjleveque/nthmp-benchmark-problems}
+    \item \url{https://github.com/rjleveque/geoclaw-group/tree/master/benchmarks}
+    \item \url{https://github.com/rjleveque/tsunami_benchmarks}
+    \item \url{http://depts.washington.edu/clawpack/geoclaw/benchmarks/nthmp_currents_2015/}
+\end{itemize}
+
+\begin{tabular}{c|cccc}
+\textbf{Dimensionality} & \textbf{Benchmark} & Analytical & Experimental & Field \\
+\hline \hline
+1D & Solitary Wave on a Simple Beach    & X          & X & ~ \\
+~  & Solitary Wave on a Composite Beach & X (linear) & X & ~ \\
+~  & Solitary Wave translating          & X          & X & ~ \\
+~  & Trapezoidal Berm                   & ~          & X & ~ \\
+\end{tabular}
+
+\section{Introduction}
+
+\subsection{Selection Criteria}
+\begin{itemize}
+    \item Limit models to those that have the following properties:
+    \begin{itemize}
+        \item Well-balanced
+        \item Handles inundation?
+        \item 2D or at the most semi-3D (layers) - this may troublesome to differentiate as most hydrostatic ocean codes are really layered 3D models
+    \end{itemize}
+\end{itemize}
+
+\section{Dispersion Analysis}
+
+\end{document}
