@@ -77,15 +77,16 @@ def solitary_wave(use_petsc=False, outdir="./_output"):
     solver.aux_bc_upper[0] = pyclaw.BC.extrap
 
     # Setup domain
-    x = pyclaw.Dimension(-10.0, 60.0, 700, name='x')
+    x = pyclaw.Dimension(-10.0, 5.0, 700, name='x')
     domain = pyclaw.Domain(x)
 
     # Setup initial condition and bathymetry
     state = pyclaw.State(domain, 2, 1)
 
     # Bathymetry
-    state.aux[0, :] = (x.centers < x_0) * numpy.ones(x.centers.shape) * -d # + \
-                      # (x.centers > x_0) * numpy.ones(x.centers.shape) * ()
+    state.aux[0, :] =   (x.centers < x_0) * numpy.ones(x.centers.shape) * -d \
+                      + (x.centers > x_0) * numpy.ones(x.centers.shape) \
+                      * (numpy.tan(beta) + d / (x.nodes[-1] - x_0)) * ((x.centers - x_0) - d)
 
     # Quiescent initial state
     state.q[0, :] = numpy.maximum(0.0, sea_level - state.aux[0, :])
