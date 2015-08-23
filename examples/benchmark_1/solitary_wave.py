@@ -65,8 +65,8 @@ def solitary_wave(use_petsc=False, outdir="./_output"):
     solver.fwave = True
     solver.source_split = 0
     # Simplified Riemann solver, probably should switch to more complex one
-    import rp_hll_fwave
-    solver.rp = rp_hll_fwave
+    import rp_geoclaw
+    solver.rp = rp_geoclaw
     #solver.step_source = \
     #    lambda solver, state, dt:friction_source(solver, state, dt, manning=0.0)
 
@@ -84,18 +84,25 @@ def solitary_wave(use_petsc=False, outdir="./_output"):
     state = pyclaw.State(domain, 2, 1)
 
     # Bathymetry
-    state.aux[0, :] =   (x.centers < x_0) * numpy.ones(x.centers.shape) * -d \
-                      + (x.centers > x_0) * numpy.ones(x.centers.shape) \
-                      * (numpy.tan(beta) + d / (x.nodes[-1] - x_0)) * ((x.centers - x_0) - d)
+    state.aux[0, :] = -d
+    # state.aux[0, :] =   s(x.centers < x_0) * numpy.ones(x.centers.shape) * -d
+
+                      # + (x.centers > x_0) * numpy.ones(x.centers.shape) \
+                      # * (numpy.tan(beta) + d / (x.nodes[-1] - x_0)) * ((x.centers - x_0) - d)
 
     # Quiescent initial state
     state.q[0, :] = numpy.maximum(0.0, sea_level - state.aux[0, :])
     state.q[1, :] = 0.0
 
     # Now add solitary wave
-    eta = H / numpy.cosh(gamma * (x.centers - x_1) / d)**2
+    # eta = H / numpy.cosh(gamma * (x.centers - x_1) / d)**2
+    # state.q[0, :] += (state.q[0, :] > dry_tolerance) * eta
+    # state.q[1, :] = state.q[0, :] * -numpy.sqrt(g / d) * eta
+
+    # Gaussian hump
+    sigma = 0.2
+    eta = 0.1 * numpy.exp(-x.centers**2/sigma**2)
     state.q[0, :] += (state.q[0, :] > dry_tolerance) * eta
-    state.q[1, :] = state.q[0, :] * -numpy.sqrt(g / d) * eta
 
     # Parameters for use in the Riemann solver
     state.problem_data['g'] = g
@@ -118,6 +125,8 @@ def solitary_wave(use_petsc=False, outdir="./_output"):
     claw.output_style = 1
     claw.num_output_times = 9
     claw.tfinal = 1.0
+    # claw.output_style = 3
+    # claw.num_output_times = 10
 
     # Pass on some info to the plotting script
     with open('plot.data', 'w') as plot_data:
@@ -134,7 +143,8 @@ if __name__ == "__main__":
 
     # Compile Riemann solver if needed
     FFLAGS = "-O3 -funroll-loops -finline-functions"
-    util.compile_library(['rp1_shallow_fwave.f90'], 'rp_hll_fwave', FFLAGS=FFLAGS)
+    # util.compile_library(['rp1_shallow_fwave.f90'], 'rp_hll_fwave', FFLAGS=FFLAGS)
+    util.compile_library(['rp1_geoclaw.f90', 'geoclaw_riemann_utils.f'], 'rp_geoclaw', FFLAGS=FFLAGS)
 
     from clawpack.pyclaw.util import run_app_from_main
     import setplot
