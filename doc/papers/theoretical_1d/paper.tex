@@ -106,6 +106,24 @@ Non-Linear KdV          &  ~  &  ~  &  ~  &  ~  &  ~  \\
 Non-hydrostatic         & yes & ca. & yes & yes &  ~  \\
 \end{tabular}
 
+\section{Introduction}
+
+\subsection{Selection Criteria}
+\begin{itemize}
+    \item Limit models to those that have the following properties:
+    \begin{itemize}
+        \item Well-balanced
+        \item Handles inundation?
+        \item 2D or at the most semi-3D (layers) - this may troublesome to differentiate as most hydrostatic ocean codes are really layered 3D models
+    \end{itemize}
+\end{itemize}
+
+\section{Models} 
+
+\input{M_nonhydrostatic}
+
+\section{Dispersion Analysis} \label{sec:dispersion}
+
 \section{Benchmarks}
 
 \begin{itemize}
@@ -124,18 +142,13 @@ Non-hydrostatic         & yes & ca. & yes & yes &  ~  \\
 ~  & Trapezoidal Berm                   & ~          & X & ~ \\
 \end{tabular}
 
-\section{Introduction}
+\input{B_standingwave}
+\input{B_solitarywave}
 
-\subsection{Selection Criteria}
-\begin{itemize}
-    \item Limit models to those that have the following properties:
-    \begin{itemize}
-        \item Well-balanced
-        \item Handles inundation?
-        \item 2D or at the most semi-3D (layers) - this may troublesome to differentiate as most hydrostatic ocean codes are really layered 3D models
-    \end{itemize}
-\end{itemize}
-
-\section{Dispersion Analysis}
+\begin{flushleft}
+    \bibliographystyle{abbrv}
+    \bibliography{references}
+    \addcontentsline{toc}{section}{References}
+\end{flushleft}
 
 \end{document}

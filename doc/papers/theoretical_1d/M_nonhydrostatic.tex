@@ -1,0 +1,35 @@
+\subsection{Depth-averaged \nheswe}
+The \nheswe\ is linked to the solution of the Euler equations using kinematic boundary conditions on the surface and the bottom. The basis of the method is a projection method (see e.g. \cite{Chorin.1968}) solving the time-discretized equations stepwise. 
+The pressure is decomposed into a hydrostatic and a \nh\ part \cite{CasulliStelling.1998, StansbyZhou.1998}. This splitting has the advantage that the solver for the \nh\ equations can resort to the solver for the shallow water equations. 
+The \da\ version of this apporach was derived from a multi-layer formulation  \cite{StellingZijlema.2003} applying linear approximations between different layers, s.t. also the \nhp\ is assumed to be linear in the multi-layer equations. On the other hand, the vertical Euler equation leads to a quadratic vertical profile of the \nhp when considering \da\ equations. Therefore, there are two possibilities to choose the pressure profile.
+Under the assumption of small vertical variations of horizontal velocities, the \danheswe\ is derived out of the Euler equations for \da\ variables
+\begin{align}
+  (u,v)=\bu:=\frac{1}{h}\int_{-d}^{\xi}{\bU}\,dz, \qquad w:=\frac{1}{h}\int_{-d}^{\xi}{W}\,dz, \qquad \pnh&:=\frac{1}{h}\int_{-d}^{\xi}{\Pnh}\,dz. \label{eq:def_pnh}
+\end{align}
+The \danheswe\ is described with the equation system
+\begin{align}
+\partial_t \xi+\bnabla \cdot (h\bu)=&0, \label{eq:nh_conti} \\
+\partial_t \bu+(\bu \cdot \bnabla)\bu=&-g\bnabla \xi-\frac{1}{\rho h}\left(\bnabla \left(hp^{nh} \right) -\fnh\pnh \bnabla d\right), \label{eq:nh_Momxy} \\
+\partial_t w+(\bu \cdot \bnabla)w=&\frac{1}{\rho h}\fnh\pnh, \label{eq:nh_Momz} \\
+2 \left(w+\bu \cdot \bnabla d \right)=&-h\left(\bnabla \cdot \bu\right), \label{eq:nh_closure}
+\end{align} 
+where the scalar $\fnh$ refers to the chosen pressure profile. In case of the linear pressure profile
+\begin{equation}
+  P^{nh}(z)=\frac{\rho \Pnhd}{h}(\xi -z),
+\end{equation}
+it is $\fnh=2$, whereas it is $\fnh=1.5$ in the case of the quadratic pressure profile
+\begin{equation}
+ P^{nh}(z)=\frac{\rho}{2}\frac{\Gamma}{h}\left(-(z+d)^2+h^2\right)+\rho\Phi\left(\xi-z\right) \label{eq:Pnh_quadr_z}
+\end{equation}
+with
+\begin{align*}
+  \Gamma &:= h\left( -(\bnabla \cdot \partial_t \bu) - (\bu \cdot \bnabla) (\bnabla \cdot \bu) + (\bnabla \cdot \bu)^2 \right) \\
+  \Phi &:= - \bnabla d \cdot \left( \partial_t  \bu + (\bu \cdot \bnabla)\bu \right) - \bu \cdot \bnabla(\bnabla d) \cdot \bu.
+\end{align*}
+For a more detailed derivation see \cite{Jeschke.2016}.
+
+
+The spatial discretization of the shallow water equations implements the $P^{NC}_1$--$P_1$ finite element method as described in \cite{Hanert.2005, LeRouxPouliot.2008} with the $P^{NC}_1$--$P_1$ advection scheme of \cite{Androsov.2011}. It uses nonconforming linear basis functions for the horizontal velocities and conforming linear basis functions for the height. A two-dimensional computational domain is represented by a structured triangulation generated with the adaptive mesh generator amatos \cite{Behrens.2005}. The time-stepping scheme applies the Leapfrog method stabilized with the Robert-Asselin filter \cite{Asselin.1972} using $\alpha=0.025$.
+
+The \danheswe\ \eqref{eq:nh_conti}--\eqref{eq:nh_Momz} is solved based on the projection method proposed in \cite{StellingZijlema.2003}. The advantage of this method is that the shallow water solver does not have to change in order to solve the \nh\ equation system. This projection method involves the solution of a Poisson equation for the \nhp\ in each timestep, which is constructed as follows: The time-discretized horizontal momentum equations are written as an intermediate solution in the present timestep plus a correction term depending on the \nhp. Together with the time-discretized vertical momentum equation, this splitting is substituted into equation \eqref{eq:nh_closure} in its weak formulation to receive the Poisson equation. The emerging linear equation system is solved by means of a GMRES algorithm. The computed \nhp\ is added to the intermediate horizontal velocities and to the vertical velocity of the previous time step. At this point, the velocities have been updated and the numerical solution of the continuity equation completes the computation of the timestep.
+To discretize the \nhp\ and vertical velocity, conforming linear basis functions are used. The same approach was taken in \cite{Fuchs.2013}, but we retain an absent bathymetry gradient term. 

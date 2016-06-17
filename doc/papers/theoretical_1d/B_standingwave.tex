@@ -1,0 +1,30 @@
+\subsection{Linear standing wave}
+The linear standing wave test illustrates the different linear dispersion relations and the ability of the numerical method to represent them in an accurate manner. 
+Both, the linearized systems of the hydrostatic and dispersive have an analytic standing wave solution
+\begin{align}
+\xi(\bx,t)&=-a\sin\left(\kappa x \right)\cos\left(\kappa ct\right), \\
+ u(\bx,t) &=a \frac{c}{d}\cos\left(\kappa x\right)\sin\left(\kappa ct\right), \\
+ v(\bx,t) &=0, \qquad \forall \ \bx=(x, y)^T \in \Omega, \forall t \in \mathbb{R},
+\end{align}
+where the phase velocity $c=\frac{\omega_{\text{nh,}\fnh}}{\kappa}$ is chosen for the dispersive equation set and $c=\csw$ for the hydrostatic equation set, respectively. For the \nh\ model, the analytic vertical velocity has to be defined as
+\[
+w(\bx,t)=-\frac{d}{2}\partial_x u=\frac{1}{2}ac\kappa\sin\left(\kappa x \right)\sin\left(\kappa ct\right),
+\]
+which is derived directly from \eqref{eq:nh_closure}.
+In different model runs, we vary the depth $d$ while keeping the wave length $\lambda=\frac{2\pi}{\kappa}=20$ m and the amplitude $a=0.01$m constant to get ratios for $\frac{d}{\lambda}$ between $0.05$ and $1.0$, and ratios for $\frac{a}{d}$ between $0.01$ and $0.005$, respectively.
+We impose double periodic boundary conditions on a grid length of one wave length. The simulation time is chosen long enough to measure one wave period. 
+
+\subsubsection{Results of \nh\ model}
+The resulting normalized phase velocities for the shallow water model and the \nh\ equation set with either the linear or the quadratic vertical pressure are displayed in figure \ref{fig:nh_standingwave}. Furthermore, they are compared to their analytical reference phase velocities and the full reference phase velocity as derived in section \ref{sec:dispersion}. 
+In each case, the numerical dispersion relation matches the corresponding analytical one precisely.
+% The coincidence between numerical and analytical phase velocities is very good. 
+In a close neighborhood of the shallow water assumption (i.e., in the limit $\frac{d}{\lambda} \rightarrow 0$), the quadratic vertical pressure profile gives a better phase velocity compared to the full reference solution than the linear profile, as expected from series expansions around this state used in \Bt\ models.
+% \svnote{Can we have an additional detail plot of this neighborhood?} \ajnote{Then only thinner lines would help. I could also provide the whole image with different plotting style (thinner lines and ) One could also use absolute errors between numerical values and reference phase velocities. }\jbnote{What are you expecting to see?}\svnote{I expect to see what we describe in the text, i.e., that the quadratic vertical pressure profile gives a better phase velocity than the linear one near $d/\lambda=0$, see added figure.}
+However, for ratios $\frac{d}{\lambda} > 0.25$ approximately, the linear profile matches better.
+
+\begin{figure}[htbp]
+        \includegraphics*[width=0.95\textwidth]{nh_standingwave.eps}
+        \caption{Standing wave: Comparison of simulated hydrostatic and \nh\ phase velocities with analytic reference values for all simulations (left) and a zoom onto the close neighborhood of the long wave limit (right)}
+        \label{fig:nh_standingwave}
+\end{figure}
+
