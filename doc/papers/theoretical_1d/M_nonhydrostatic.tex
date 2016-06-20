@@ -16,16 +16,16 @@ The \danheswe\ is described with the equation system
 \end{align} 
 where the scalar $\fnh$ refers to the chosen pressure profile. In case of the linear pressure profile
 \begin{equation}
-  P^{nh}(z)=\frac{\rho \Pnhd}{h}(\xi -z),
+  P^{nh}(z)=\frac{\Pnhd}{h}(\xi -z),
 \end{equation}
-it is $\fnh=2$, whereas it is $\fnh=1.5$ in the case of the quadratic pressure profile
+with $\Pnhd$ being the \nhp\ at the bottom, it is $\fnh=2$, whereas it is $\fnh=1.5$ in the case of the quadratic pressure profile
 \begin{equation}
- P^{nh}(z)=\frac{\rho}{2}\frac{\Gamma}{h}\left(-(z+d)^2+h^2\right)+\rho\Phi\left(\xi-z\right) \label{eq:Pnh_quadr_z}
+ P^{nh}(z)=\frac{1}{2}\frac{\Gamma}{h}\left(-(z+d)^2+h^2\right)%+\rho\Phi\left(\xi-z\right) \label{eq:Pnh_quadr_z}
 \end{equation}
 with
 \begin{align*}
-  \Gamma &:= h\left( -(\bnabla \cdot \partial_t \bu) - (\bu \cdot \bnabla) (\bnabla \cdot \bu) + (\bnabla \cdot \bu)^2 \right) \\
-  \Phi &:= - \bnabla d \cdot \left( \partial_t  \bu + (\bu \cdot \bnabla)\bu \right) - \bu \cdot \bnabla(\bnabla d) \cdot \bu.
+  \Gamma &:= \rho h\left( -(\bnabla \cdot \partial_t \bu) - (\bu \cdot \bnabla) (\bnabla \cdot \bu) + (\bnabla \cdot \bu)^2 \right). \\
+  %\Phi &:= - \bnabla d \cdot \left( \partial_t  \bu + (\bu \cdot \bnabla)\bu \right) - \bu \cdot \bnabla(\bnabla d) \cdot \bu.
 \end{align*}
 For a more detailed derivation see \cite{Jeschke.2016}.
 

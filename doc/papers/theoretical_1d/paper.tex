@@ -45,7 +45,8 @@
 \newcommand{\alert}[1]{\textbf{\color{red} #1}}
 
 \graphicspath{{./figures/}}
-
+% tables
+\usepackage{booktabs}
 
 
 % Useful commands
@@ -119,10 +120,17 @@ Non-hydrostatic         & yes & ca. & yes & yes &  ~  \\
 \end{itemize}
 
 \section{Models} 
-
+need to define same symbols for all models
 \input{M_nonhydrostatic}
 
 \section{Dispersion Analysis} \label{sec:dispersion}
+For simplicity, we restrict ourselves to the linear one-dimensional case on a constant bathymetry.
+We consider harmonic solutions 
+\[
+ \xi=\overline{\xi}e^{i(\kappa x-\omega t)}, \qquad u=\overline{u}e^{i(\kappa x-\omega t)},
+\]
+in each equation system with the wave number $\kappa$, the frequency $\omega$ and the time $t$ for given amplitudes $\overline{\xi}$ and $\overline{u}$.
+\input{D_nonhydrostatic}
 
 \section{Benchmarks}
 
@@ -144,6 +152,8 @@ Non-hydrostatic         & yes & ca. & yes & yes &  ~  \\
 
 \input{B_standingwave}
 \input{B_solitarywave}
+\input{B_compositebeach}
+\input{B_bejibattjes}
 
 \begin{flushleft}
     \bibliographystyle{abbrv}

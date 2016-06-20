@@ -1,0 +1,30 @@
+\subsection{Depth-averaged \nheswe}
+The linearized system of equations \eqref{eq:nh_conti}--\eqref{eq:nh_closure} reduces to 
+\begin{align*}
+ 0 &= \partial_t\xi+\partial_x(du), \\
+ \partial_tu + g\partial_x\xi &= \frac{1}{2\fnh}d^2\partial_{txx} u,
+%  \label{eq:nh_1D_Bouss_Disp}
+\end{align*}
+where the scalar $\fnh$ determines the vertical pressure profile. The resulting dispersion relation is
+\begin{equation}
+ \omega^2_{\text{nh,}\fnh}=\frac{\csw^2\kappa^2}{1+\frac{(\kappa d)^2}{2\fnh}},
+ \label{eq:disp_nh_fnh}
+\end{equation}
+where $\csw=\sqrt{gd}$ is the linear shallow water gravity wave speed.
+The dispersion relation resulting from the quadratic vertical pressure profile ($\fnh=\frac{3}{2}$) is the same as for the Serre equations, so
+\begin{equation}
+ \omega^2_{\text{nh,quad}}=\frac{\csw\kappa^2}{1+\frac{(\kappa d)^2}{3}}=\csw^2\kappa^2\left(1-\frac{1}{3}(kd)^2+\frac{1}{9}(kd)^4+\mathcal{O}(kd)^6 \right),
+ \label{eq:disp_nh_quadr}
+\end{equation}
+whereas the linear vertical pressure profile ($\fnh=2$) leads to the dispersion relation
+\begin{equation}
+ \omega^2_{\text{nh,lin}}=\frac{\csw^2\kappa^2}{1+\frac{(\kappa d)^2}{4}}=\csw^2\kappa^2\left(1-\frac{1}{4}(kd)^2+\frac{1}{16}(kd)^4+\mathcal{O}(kd)^6 \right) \label{eq:disp_nh_lin}
+\end{equation}
+% The same result is given in \cite{Cui.2014} for the linear vertical profile.
+For comparison, the dispersion relation from the full linear inviscid equations
+is (see, for instance, \cite{Whitham.1974})
+\begin{equation}
+ \omega^2_{\text{full}}=g\kappa\tanh\left(\kappa d  \right)=\csw^2\kappa^2\left(1-\frac{1}{3}(kd)^2+\frac{2}{15}(kd)^4+\mathcal{O}(kd)^6 \right) .
+ \label{eq:disp_full}
+\end{equation}
+Therefore, the quadratic vertical profile of the \nhp\ is exact in comparison with the dispersion relation from the full linear inviscid equations up to the first order, whereas the linear profile leads to a match only in the zeroth order.
