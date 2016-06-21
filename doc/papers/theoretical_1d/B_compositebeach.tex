@@ -1,7 +1,8 @@
 %!TEX root = paper.tex
 \subsection{Solitary wave on a composite beach}
 This is an laboratory experiment conducted at the Coastal Engineering Laboratory of the U.S. Army Corps of Engineers and it is described in \url{http://nctr.pmel.noaa.gov/benchmark/Solitary_wave/}, \url{http://chl.erdc.usace.army.mil/chl.aspx?p=s&a=Projects;36}. 
-A linear solitary (better called single?) wave is propagating over a stepwise increasing bathymetry and it is reflected at a vertical wall on the right boundary. Different wave gauges measure the surface elevation and the runup on the vertical wall.
+A linear solitary (better called single?) wave is propagating over a stepwise increasing bathymetry and it is reflected at a vertical wall on the right boundary. Different wave gauges measure the surface elevation and the runup on the vertical wall. 
+The experimental data serve for validation of the models. Additionally to the experimental data, a linear analytic solution is provided, s.t. verification of our models is also tested.
 
 Three different cases A, B, C with different target wave heights $a_t$, actual (measured) wave heights $a$ and distances $L$ of gauge $G4$ to the first step in the bathymetry at gauge $G5$. Table \ref{tab:compositebeach_cases} displays the three different cases and belonging data. We only consider case A at the moment. Measured runup data can be found in table \ref{tab:compositebeach_runup}, but are not compared yet to the simulations.
 
@@ -11,7 +12,7 @@ Three different cases A, B, C with different target wave heights $a_t$, actual (
 \toprule
 A       &     0.05   & 0.039    &   2.4   &  10.59     \\
 B       &     0.30   & 0.264    &   0.89  &   9.17     \\
-C       &     0.70   & 0.696    &    0.64  &   8.83     \\
+C       &     0.70   & 0.696    &    0.64  &   8.83    \\
 \bottomrule
 \end{tabular}
 \caption{Data of three different cases}
@@ -23,9 +24,9 @@ C       &     0.70   & 0.696    &    0.64  &   8.83     \\
 \begin{tabular}{lll}
 \textbf{Case} & \textbf{Runup R [cm]} & \textbf{R / d} \\
 \toprule
-A       &        2.74   &  0.13 \\
-B       &         45.72  &   2.10\\
-C       &        27.43  &   1.26 \\
+A       &        2.74  &  0.13 \\
+B       &       45.72  &  2.10 \\
+C       &       27.43  &  1.26 \\
 \bottomrule
 \end{tabular}
 \caption{Runup laboratory results of three different cases}
@@ -33,14 +34,18 @@ C       &        27.43  &   1.26 \\
 \end{table}
 
 
-The initial condition is prescribed as a linear analytic solitary wave solution
+The initial condition is prescribed as 
+\begin{itemize}
+ \item a linear analytic solitary wave solution
 \begin{align}
 \xi(\bx,t)&=a \ \text{cosh}^{-2}(K(x-ct-x_0)), \\
 u(\bx,t)&=c\frac{\xi(\bx,t)}{d},
 \end{align}
-with the initial amplitude $a$, propagation velocity $c=\csw$ on a stepwise reduced depth starting from $d=0.218 \, \text{m}$ with scale factor $K=\sqrt{\left(\frac{3a}{4d^3}\right)}$ and displacement $x_0=10.59$, s.t. the initial solitary wave has its maximum at gauge G4 with an entire domain length of $L=24 \, \text{m}$. The simulation time is $20$ seconds. 
-
-We impose reflecting boundary conditions at the boundary in x-direction and periodic boundary conditions in y.direction. For the setup see figure \ref{fig:compositebeach_setup}. In both cases, the results are shifted by 271.5s to match the initial wave at gauge G4.
+with the initial actual amplitude $a$, propagation velocity $c=\csw$ on a stepwise reduced depth starting from $d=0.218 \, \text{m}$ with scale factor $K=\sqrt{\left(\frac{3a}{4d^3}\right)}$ and displacement $x_0=10.59$, s.t. the initial solitary wave has its maximum at gauge G4 while the entire domain length is $L=24 \, \text{m}$. The simulation time is $20$ seconds. 
+ \item the first option in \url{https://github.com/rjleveque/nthmp-benchmark-problems/blob/master/BP05-ElenaT-Solitary_wave_on_composite_beach_laboratory/BP5_description.pdf}. The velocities are set to zero and the doubled initial surface elevation $2\xi$ is prescribed at $x=0$. A doubled domain length of $L=48 \, \text{m}$ ensures that the waves reflected at the left boundary are not disturbing the solution. The simulation time is $40$ seconds.
+\end{itemize}
+We impose reflecting boundary conditions at the boundary in x-direction and periodic boundary conditions in y-direction. For the setup see figure \ref{fig:compositebeach_setup}. 
+Because the analytic solution belongs to the linear SWE, corresponding models are expected to represent very good coincidence with this analytic solution.
 
 \begin{figure}[htbp]
 \includegraphics[width=\textwidth]{compositebeach_setup}
@@ -49,7 +54,11 @@ We impose reflecting boundary conditions at the boundary in x-direction and peri
 \end{figure}
 
 \subsubsection{Results of \nh\ model}
-The linear SWE model results can be found in figure \eqref{fig:nh_compositebeach_ana_nh_Lhy}.
+The results of the first and the seconds option are shifted by 271.5s and by 262.8s, respectively, to match the initial wave at gauge G4. Both are also scaled with a factor of 0.75.
+No difference between both options is visible in the figures then. Hence, we only plot the results of the (cheaper) first option using the linear SWE model and also the following results obtained with the \nh\ model.
+Figures \eqref{fig:nh_compositebeach_ana_nh_Lhy} and \eqref{fig:nh_compositebeach_lab_nh_Lhy} display the comparison of the linear SWE with the linear analytic solution and experimental data, respectively.
+The models results compared to the analytic solution are very good, while at gauges G9 and G10 a mismatch is visible, because this is a nonlinear regime (d $\in [0.047,0.117]$m, $a=0.039$m), for which the linear model is not suited.
+The comparison to the experimental data reveals less dispersion and reduced amplitudes, although the overall match is also satisfactory.
 
 \begin{figure}[htbp]
 \begin{minipage}{\textwidth}
@@ -71,4 +80,35 @@ The linear SWE model results can be found in figure \eqref{fig:nh_compositebeach
 \caption{Comparison of the analytical (black) sea surface height of the
 solitary wave with the simulation results of the \nh\ model in its version of linear shallow water equations (red)}
 \label{fig:nh_compositebeach_ana_nh_Lhy}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{minipage}{\textwidth}
+\includegraphics[width=0.48\textwidth]{compositebeach_lab_G4_nh_Lhy}
+\includegraphics[width=0.48\textwidth]{compositebeach_lab_G5_nh_Lhy}
+\end{minipage} \\
+\begin{minipage}{\textwidth}
+\includegraphics[width=0.48\textwidth]{compositebeach_lab_G6_nh_Lhy}
+\includegraphics[width=0.48\textwidth]{compositebeach_lab_G7_nh_Lhy}
+\end{minipage} \\
+\begin{minipage}{\textwidth}
+\includegraphics[width=0.48\textwidth]{compositebeach_lab_G8_nh_Lhy}
+\includegraphics[width=0.48\textwidth]{compositebeach_lab_G9_nh_Lhy}
+\end{minipage} \\
+\begin{minipage}{0.48\textwidth}
+\includegraphics[width=\textwidth]{compositebeach_lab_G10_nh_Lhy}
+\end{minipage} 
+\qquad 
+\begin{minipage}{0.45\textwidth}
+\begin{tabular}{lll}
+\textbf{Data} & \textbf{Runup} & \textbf{R / d} \\
+              & \textbf{R [cm]} &  \\
+\toprule
+Exp.  &  2.74   &  0.13 \\
+Model &  2.16   &  0.10 \\
+\end{tabular}
+\end{minipage}
+\caption{Comparison of the experimental (black) sea surface height of the
+solitary wave with the simulation results of the \nh\ model in its version of linear shallow water equations (red). The model runup is also scaled with 0.75.}
+\label{fig:nh_compositebeach_lab_nh_Lhy}
 \end{figure}
