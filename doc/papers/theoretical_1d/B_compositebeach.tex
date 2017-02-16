@@ -38,10 +38,10 @@ The initial condition is prescribed as
 \begin{itemize}
  \item a linear analytic solitary wave solution
 \begin{align}
-\xi(\bx,t)&=a \ \text{cosh}^{-2}(K(x-ct-x_0)), \\
+\xi(\bx,t)&=a_t \ \text{cosh}^{-2}(K(x-ct-x_0)), \\
 u(\bx,t)&=c\frac{\xi(\bx,t)}{d},
 \end{align}
-with the initial target (but should better do it with actual amplitude, than the scaling of 0.75, which is the relation of both, should be redundant) amplitude $a$, propagation velocity $c=\csw$ on a stepwise reduced depth starting from $d=0.218 \, \text{m}$ with scale factor $K=\sqrt{\left(\frac{3a}{4d^3}\right)}$ and displacement $x_0=10.59$, s.t. the initial solitary wave has its maximum at gauge G4 while the entire domain length is $L=24 \, \text{m}$. The simulation time is $20$ seconds. 
+with the initial target amplitude $a_t$, propagation velocity $c=\csw$ on a stepwise reduced depth starting from $d=0.218 \, \text{m}$ with scale factor $K=\sqrt{\left(\frac{3a_t}{4d^3}\right)}$ and displacement $x_0=10.59$, s.t. the initial solitary wave has its maximum at gauge G4 while the entire domain length is $L=24 \, \text{m}$. The simulation time is $20$ seconds. 
  \item the first option in \url{https://github.com/rjleveque/nthmp-benchmark-problems/blob/master/BP05-ElenaT-Solitary_wave_on_composite_beach_laboratory/BP5_description.pdf}. The velocities are set to zero and the doubled initial surface elevation $2\xi$ is prescribed at $x=0$. A doubled domain length of $L=48 \, \text{m}$ ensures that the waves reflected at the left boundary are not disturbing the solution. The simulation time is $40$ seconds.
 \end{itemize}
 We impose reflecting boundary conditions at the boundary in x-direction and periodic boundary conditions in y-direction. For the setup see figure \ref{fig:compositebeach_setup}. 
@@ -54,11 +54,11 @@ Because the analytic solution belongs to the linear SWE, corresponding models ar
 \end{figure}
 
 \subsubsection{Results of \nh\ model}
-The results of the first and the seconds option are shifted by 271.5s and by 262.8s, respectively, to match the initial wave at gauge G4. Both are also scaled with a factor of 0.75.
+The results of the first and the seconds option are shifted by 271.5s to match the initial wave at gauge G4. Both are also scaled with a factor of $\frac{0.037}{0.05}$. % because $0.037$m seems to be the actual amplitude instead of $0.039$.
 No difference between both options is visible in the figures then. Hence, we only plot the results of the (cheaper) first option using the linear SWE model and also the following results obtained with the \nh\ model.
 
 Figures \eqref{fig:nh_compositebeach_ana_nh_Lhy} and \eqref{fig:nh_compositebeach_lab_nh_Lhy} display the comparison of the linear SWE with the linear analytic solution and experimental data, respectively.
-The models results compared to the analytic solution are very good, while at gauges G9 and G10 a mismatch is visible, because the nonlinear regime is entered here (d $\in [0.047,0.117]$m, $a=0.008502$m), for which the linear model is not suited.
+The models results compared to the analytic solution are very good, while at gauges G9 and G10 a mismatch is visible, because the nonlinear regime is entered here (d $\in [0.047,0.117]$m, $a\approx0.008$m), for which the linear model is not suited.
 The comparison to the experimental data reveals less dispersion and reduced amplitudes, although the overall match is also satisfactory.
 
 Figures \eqref{fig:nh_compositebeach_ana_nh_Nnh12} and \eqref{fig:nh_compositebeach_lab_nh_Nnh12} display the comparison of the \nh\ equations using both the linear and the quadratic pressure profile with the linear analytic solution and experimental data, respectively. The \nh\ wave profile represents well the amplitudes, the shape of the propagating wave, the propagation velocities and also the developed dispersive wave train after reflecting of the laboratory surface elevation. The agreement with the linear analytic solution is worse, but still okay.
@@ -115,7 +115,7 @@ solitary wave with the simulation results of the \nh\ model in its version of li
               & \textbf{R [cm]} &  \\
 \toprule
 Exp.  &  2.74   &  0.13 \\
-Model hydr. &  2.16   &  0.099 \\
+Model hydr. &  2.13   &  0.0978 \\
 \end{tabular}
 \end{minipage}
 \caption{Comparison of the experimental (black) sea surface height of the
